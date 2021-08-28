@@ -3,11 +3,33 @@
 {% block title %}Log-in{% endblock %}
 
 {% block content %}
+<!--<h1>登入</h1>-->
+<!--<p>登入使用更多功能，沒有帳號點擊<a href="." style="color: blue;">註冊</a></p>-->
+<!--<form action="." method="post">-->
+<!--    {{ form.as_p }}-->
+<!--    {% csrf_token %}-->
+<!--    <p><input type="submit" value="登入"></p>-->
+<!--</form>-->
+
 <h1>登入</h1>
 <p>登入使用更多功能，沒有帳號點擊<a href="." style="color: blue;">註冊</a></p>
-<form action="." method="post">
-    {{ form.as_p }}
+
+
+<form method="post" action="{% url 'login' %}">
     {% csrf_token %}
-    <p><input type="submit" value="登入"></p>
+    {% if form.errors %}
+    <p>Your username and password didn't match. Please try again.</p>
+    {% endif %}
+    <table>
+        <tr>
+            <td>{{ form.username.label_tag }}</td>
+            <td>{{ form.username }}</td>
+        </tr>
+        <tr>
+            <td>{{ form.password.label_tag }}</td>
+            <td>{{ form.password }}</td>
+        </tr>
+    </table>
+    <input type="submit" value="login">
 </form>
 {% endblock %}
