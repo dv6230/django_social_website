@@ -9,6 +9,14 @@
 <body>
 <div id="header">
     <sapn class="logo">w-social</sapn>
+    <span class="user">
+        {% if request.user.is_authenticated %}
+        Hello, {{ request.user.first_name }}
+        <a href="{% url 'logout' %}">登出</a>
+        {% else %}
+        <a href="{% url 'login' %}">登入</a>
+        {% endif %}
+    </span>
 </div>
 <div id="content">
     {% block content %}
