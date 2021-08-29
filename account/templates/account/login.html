@@ -4,7 +4,7 @@
 
 {% block content %}
 <h1>登入</h1>
-<p>登入使用更多功能，沒有帳號點擊<a href="." style="color: blue;">註冊</a></p>
+<p>登入使用更多功能，沒有帳號點擊<a href="{% url 'register' %}" style="color: blue;">註冊</a></p>
 <form action="." method="post">
     {{ form.as_p }}
     {% csrf_token %}

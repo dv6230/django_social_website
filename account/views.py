@@ -1,8 +1,9 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, password_validation
 from django.contrib.auth.forms import UserCreationForm
-from .form import LoginForm
+from .form import LoginForm , MyUserCreationForm
+import django.forms
 
 
 def dashboard(request):
@@ -34,7 +35,7 @@ def user_login(request):
 
 def register(request):
     if request.method == 'POST':
-        user_form = UserCreationForm(request.POST)
+        user_form = MyUserCreationForm(request.POST)
         if user_form.is_valid():
             new_user = user_form.save(commit=False)
             new_user.set_password(
@@ -47,5 +48,6 @@ def register(request):
                 {'new_user': new_user}
             )
     else:
-        user_form = UserCreationForm()
-        return render(request, 'account/register.html', {'user_form': user_form})
+        user_form = MyUserCreationForm()
+
+    return render(request, 'account/register.html', {'user_form': user_form})
