@@ -9,6 +9,12 @@
 <body>
 <div id="header">
     <sapn class="logo">w-social</sapn>
+    {% if request.user.is_authenticated %}
+    <ul class="menu">
+        <li><a href="{% url 'dashboard' %}"></a></li>
+        <li><a href="#">圖片</a></li>
+    </ul>
+    {% endif %}
     <span class="user">
         {% if request.user.is_authenticated %}
         Hello, {{ request.user.first_name }}
