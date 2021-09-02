@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.contrib.staticfiles.urls import static , staticfiles_urlpatterns
+from .settings import MEDIA_ROOT , MEDIA_URL
 from account import views
 
 urlpatterns = [
@@ -23,3 +25,6 @@ urlpatterns = [
     path('image/',include('image.urls')),
     # path('social-auth',include('social_django.urls'),namespace='social')
 ]
+
+urlpatterns += staticfiles_urlpatterns()
+urlpatterns += static(MEDIA_URL,document_root=MEDIA_ROOT)

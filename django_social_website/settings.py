@@ -46,7 +46,6 @@ AUTHENTICATION_BACKENDS = [
     'account.authentication.EmailAuthBackend',
 ]
 
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -137,4 +136,4 @@ LOGIN_URL = '/account/login'
 LOGOUT_URL = '/account/login'
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
