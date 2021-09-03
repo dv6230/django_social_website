@@ -1,6 +1,26 @@
 {% extends 'base.html' %}
 {% block title %}圖片列表{% endblock %}
 {% block content %}
+{% load thumbnail %}
 <h1>圖片</h1>
 <p>上傳圖片請點<a href="{% url 'image_upload' %}">這裡</a></p>
+
+
+{% for image in images %}
+<div class="image">
+    <a href="{{ image.get_absolute_url }}">
+        {% thumbnail image.image "300x300" crop="100%" as im %}
+        <a href="{{ image.get_absolute_url }}">
+            <img src="{{ im.url }}">
+        </a>
+        {% endthumbnail %}
+    </a>
+    <div class="info">
+        <a href="{{ image.get_absolute_url }}" class="title">
+            {{ image.title }}
+        </a></div>
+</div>
+{% endfor %}
+
+
 {% endblock %}

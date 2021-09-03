@@ -1,8 +1,9 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.shortcuts import render , redirect
 from .forms import ImageForm
 from .models import Image
 from django.core.exceptions import ObjectDoesNotExist
+
 
 
 # Create your views here.
@@ -25,14 +26,28 @@ def image_upload(request):
 
 @login_required
 def image_list(request):
-    return render(request, 'image/image_list.html')
+    images = Image.objects.filter(user=request.user)
+    return render(request, 'image/image_list.html',{'images':images})
 
 
 @login_required
 def image_detail(request, id):
     try:
-        image = Image.objects.get(id=id)
+        image = Image.objects.get(pk=id)
     except ObjectDoesNotExist:
         return render(request, 'image/image_list.html')
 
     return render(request, 'image/image_detail.html', {'image': image})
+
+@login_required
+def image_like(request,id):
+    image = Image.objects.get(pk=id)
+    image.user_like.add(request.user)
+    return redirect('image:image.detail',id=id)
+
+@login_required
+def image_dislike(request,id):
+    image = Image.objects.get(pk=id)
+    image.user_like.remove(request.user)
+    return redirect('image:image.detail',id=id)
+

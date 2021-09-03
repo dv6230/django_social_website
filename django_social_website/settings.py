@@ -38,7 +38,8 @@ INSTALLED_APPS = [
 
     'account.apps.AccountConfig',
     # 'social_django',
-    'image.apps.ImageConfig'
+    'image.apps.ImageConfig',
+    'sorl.thumbnail',
 ]
 
 AUTHENTICATION_BACKENDS = [
