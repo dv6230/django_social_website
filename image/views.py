@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from .forms import ImageForm
 from .models import Image
+from django.core.exceptions import ObjectDoesNotExist
 
 
 # Create your views here.
@@ -28,6 +29,10 @@ def image_list(request):
 
 
 @login_required
-def image_detail(request, id, slug):
-    image = Image.objects.get(id=id, slug=slug).first()
+def image_detail(request, id):
+    try:
+        image = Image.objects.get(id=id)
+    except ObjectDoesNotExist:
+        return render(request, 'image/image_list.html')
+
     return render(request, 'image/image_detail.html', {'image': image})

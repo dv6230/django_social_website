@@ -1,5 +1,15 @@
 {% extends 'base.html' %}
 {% block title %}圖片資訊{% endblock %}
 {% block content %}
-<img src="{{ image.image.ulr }}" class="image-detail">
+
+<div>
+<img src="{{ image.image.url }}" style="max-width: 300px;height: auto;display:inline-block;float:left;">
+<div style="display:inline-block;height: 100%;clear: left;">
+    <h2>{{ image.title }}</h2>
+    {{ image.description }}
+    <br>
+    <small>{{ image.created|date:'Y-m-d' }}</small>
+</div>
+</div>
+
 {% endblock %}
