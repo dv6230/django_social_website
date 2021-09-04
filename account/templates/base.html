@@ -12,7 +12,7 @@
     {% if request.user.is_authenticated %}
     <ul class="menu">
         <li><a href="{% url 'dashboard' %}">個人資訊</a></li>
-        <li><a href="{% url 'image_list' %}">圖片</a></li>
+        <li><a href="{% url 'image:image_list' %}">圖片</a></li>
     </ul>
     {% endif %}
     <span class="user">

@@ -3,7 +3,7 @@
 {% block content %}
 {% load thumbnail %}
 <h1>圖片</h1>
-<p>上傳圖片請點<a href="{% url 'image_upload' %}">這裡</a></p>
+<p>上傳圖片請點<a href="{% url 'image:image_upload' %}">這裡</a></p>
 
 
 {% for image in images %}
