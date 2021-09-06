@@ -8,5 +8,4 @@ urlpatterns = [
     path('<int:id>/', views.image_detail, name='image_detail'),
     path('like/<int:id>', views.image_like, name='image_like'),
     path('dislike/<int:id>', views.image_dislike, name='image_dislike'),
-
 ]

@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from .forms import ImageForm
 from .models import Image
@@ -25,7 +26,7 @@ def image_upload(request):
 
 @login_required
 def image_list(request):
-    images = Image.objects.filter(user=request.user)
+    images = Image.objects.all()
     return render(request, 'image/image_list.html', {'images': images})
 
 
@@ -41,9 +42,21 @@ def image_detail(request, id):
 
 @login_required
 def image_like(request, id):
-    image = Image.objects.get(pk=id)
-    image.user_like.add(request.user)
-    return redirect('image:image_detail', id=id)
+    try:
+        islike = Image.objects.get(user_like=request.user, pk=id)
+    except Image.DoesNotExist:
+        islike = None
+
+    if islike == None:
+        image = Image.objects.get(pk=id)
+        image.user_like.add(request.user)
+        return JsonResponse({'status': 'success', 'image_status': 'count-like',
+                             'number': str(Image.objects.get(pk=id).user_like.count())})
+    else:
+        image = Image.objects.get(pk=id)
+        image.user_like.remove(request.user)
+        return JsonResponse(
+            {'status': 'success', 'image_status': 'count', 'number': str(Image.objects.get(pk=id).user_like.count())})
 
 
 @login_required
@@ -51,5 +64,3 @@ def image_dislike(request, id):
     image = Image.objects.get(pk=id)
     image.user_like.remove(request.user)
     return redirect('image:image_detail', id=id)
-
-

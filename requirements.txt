@@ -3,3 +3,4 @@ mysqlclient
 Django
 pillow
 sorl-thumbnail
+django-cors-headers
