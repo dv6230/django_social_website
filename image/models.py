@@ -24,7 +24,7 @@ class Image(models.Model):
     )
 
     class Meta:
-        ordering = ('-created',)
+        ordering = ('-created', '-id')
 
     def __str__(self):
         return self.title

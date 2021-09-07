@@ -21,7 +21,21 @@
         </a></div>
 </div>
 {% endfor %}
+</div>
 
+<div>
+    <ul style="list-style-type: none;">
+        {% if images.has_previous %}
+        <li style="display: inline-block;margin-right: 5px;padding:5px;border: 1px solid deepskyblue">
+            <a href="?page={{ images.previous_page_number }}">上一頁</a>
+        </li>
+        {% endif %}
+        {% if images.has_next %}
+        <li style="display: inline-block;margin-left: 5px;padding:5px;border: 1px solid deepskyblue">
+            <a href="?page={{ images.next_page_number }}">下一頁</a>
+        </li>
+        {% endif %}
+    </ul>
 </div>
 
 

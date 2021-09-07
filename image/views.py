@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 from .forms import ImageForm
 from .models import Image
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.paginator import Paginator , EmptyPage , PageNotAnInteger
 
 
 # Create your views here.
@@ -27,6 +28,15 @@ def image_upload(request):
 @login_required
 def image_list(request):
     images = Image.objects.all()
+    paginator = Paginator(images,10)
+    page = request.GET.get('page')
+    try:
+        images = paginator.page(page)
+    except PageNotAnInteger :
+        images = paginator.page(1)
+    except EmptyPage:
+        images = paginator.page(paginator.num_pages)
+
     return render(request, 'image/image_list.html', {'images': images})
 
 
