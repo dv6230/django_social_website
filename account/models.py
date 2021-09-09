@@ -1,3 +1,5 @@
+from hashlib import md5
+
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -35,4 +37,13 @@ User.add_to_class(
         related_name='followers',
         symmetrical=False,  # 非對稱結構
     )
+)
+
+def avatar(self, size=80):
+    md5_digest = md5(self.email.lower().encode('UTF-8')).hexdigest()
+    return "https://www.gravatar.com/avatar/{}?d=identicon&s={}".format(md5_digest, size)
+
+
+User.add_to_class(
+    'avatar', avatar
 )

@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, password_validation
@@ -56,5 +57,11 @@ def register(request):
     return render(request, 'account/register.html', {'user_form': user_form})
 
 
+@login_required()
+def profile(request, username):
+    user = User.objects.filter(username=username).first()
+    return render(request, 'account/profile.html', {'user': user})
+
+
 def abc123(request):
-    return JsonResponse( {'status': 'scuuess'})
+    return JsonResponse({'status': 'scuuess'})

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}個人資訊{% endblock %}
+
+{% block content %}
+<h1>{{ user.username }}</h1>
+<div class="images">
+    <img src="{{ user.avatar }}" class="item-img">
+</div>
+<p>{{ user.firstname }}</p>
+<p>{{ user.lastname }}</p>
+<p>追隨者數量{{ user.followers.count }}</p>
+<p>追蹤數量{{ user.following.count }}</p>
+{% endblock %}
