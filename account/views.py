@@ -1,12 +1,13 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import HttpResponse, JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, password_validation
 from django.contrib.auth.forms import UserCreationForm
 from .form import LoginForm, MyUserCreationForm
 import django.forms
 from django.contrib.auth import authenticate, login
+from .models import Contract
 
 
 @login_required
@@ -60,8 +61,38 @@ def register(request):
 @login_required()
 def profile(request, username):
     user = User.objects.filter(username=username).first()
-    return render(request, 'account/profile.html', {'user': user})
+    if user is not None:
+        return render(request, 'account/profile.html', {'user': user})
+    else:
+        return redirect('/account/')
 
 
-def abc123(request):
-    return JsonResponse({'status': 'scuuess'})
+@login_required()
+def user_list(request):
+    user_list = User.objects.all()
+    return render(request, 'account/user_list.html', {'users': user_list})
+
+
+@login_required()
+def follow(request, username):
+    user_to = User.objects.filter(username=username).first()
+    user_from = request.user
+    contract = Contract(
+        user_from=user_from,
+        user_to=user_to
+    )
+    contract.save()
+    return redirect('profile', username=username)
+
+
+@login_required()
+def unfollow(request, username):
+    user_to = User.objects.filter(username=username).first()
+    user_from = request.user
+    con = Contract.objects.filter(user_from=user_from, user_to=user_to).first()
+    if con:
+        con.delete()
+    return redirect('profile', username=username)
+
+# def (reabc123quest):
+#     return JsonResponse({'status': 'scuuess'})

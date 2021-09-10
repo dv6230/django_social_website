@@ -7,8 +7,24 @@
 <div class="images">
     <img src="{{ user.avatar }}" class="item-img">
 </div>
-<p>{{ user.firstname }}</p>
-<p>{{ user.lastname }}</p>
-<p>追隨者數量{{ user.followers.count }}</p>
-<p>追蹤數量{{ user.following.count }}</p>
+<div class="image-info">
+    {% if request.user.username != user.username %}
+        {% if request.user in user.followers.all %}
+        <a class="count-like" href="{% url 'unfollow' user.username %}">
+            追蹤中
+        </a>
+        {% else %}
+        <a class="count" href="{% url 'follow' user.username %}">
+            蹤中
+        </a>
+        {% endif %}
+    {% endif %}
+</div>
+<div>
+    <p>{{ user.firstname }}</p>
+    <p>{{ user.lastname }}</p>
+    <p>追隨者數量{{ user.followers.count }}</p>
+    <p>追蹤數量{{ user.following.count }}</p>
+</div>
+
 {% endblock %}

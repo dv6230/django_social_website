@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}使用者列表{% endblock %}
+
+{% block content %}
+<h1>用戶列表</h1>
+<div id="image">
+    {% for user in users %}
+    <a href="{% url 'profile' user.username %}">
+        <img src="{{ user.avatar }}" class="item-img">
+    </a>
+    {% endfor %}
+</div>
+{% endblock %}
