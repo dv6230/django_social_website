@@ -15,16 +15,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.contrib.staticfiles.urls import static , staticfiles_urlpatterns
-from .settings import MEDIA_ROOT , MEDIA_URL
-from account import views
+from django.contrib.staticfiles.urls import static, staticfiles_urlpatterns
+from .settings import MEDIA_ROOT, MEDIA_URL
+from .views import index
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('', index, name='index'),
+    path('admin/', admin.site.urls, name='admin'),
     path('account/', include('account.urls')),
-    path('image/',include('image.urls')),
+    path('image/', include('image.urls')),
     # path('social-auth',include('social_django.urls'),namespace='social')
 ]
 
 urlpatterns += staticfiles_urlpatterns()
-urlpatterns += static(MEDIA_URL,document_root=MEDIA_ROOT)
+urlpatterns += static(MEDIA_URL, document_root=MEDIA_ROOT)
