@@ -36,3 +36,6 @@ class Image(models.Model):
 
     def get_absolute_url(self):
         return reverse('image:image_detail', args=[self.id])
+
+    def test_call_model_function(self,str):
+        return str + '/test'
