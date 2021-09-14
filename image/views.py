@@ -1,4 +1,4 @@
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from .forms import ImageForm
@@ -10,6 +10,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # Create your views here.
 
 @login_required
+@permission_required('image.image_upload', login_url='/image/list')  # 上傳檔案權限控制
 def image_upload(request):
     if request.method == "POST":
         form = ImageForm(request.POST, request.FILES)
