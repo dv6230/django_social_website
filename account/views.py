@@ -10,7 +10,7 @@ from django.contrib.auth import authenticate, login
 from .models import Contract
 
 
-@login_required
+@login_required(login_url='/account/login/')
 def dashboard(request):
     return render(request, 'account/dashboard.html')
 

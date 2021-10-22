@@ -24,6 +24,8 @@ class MyUserCreationForm(UserCreationForm):
         },
         widget=forms.PasswordInput(attrs={'class': 'form-control'})
     )
+
+
     error_messages = {
         'password_mismatch': "兩者密碼不相同",
     }
@@ -38,6 +40,7 @@ class MyUserCreationForm(UserCreationForm):
             'last_name': '名稱',
             'password1': '密碼',
             'password2': '再次輸入密碼',
+
         }
         error_messages = {
             '__all__': {
