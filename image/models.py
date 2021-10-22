@@ -11,7 +11,7 @@ class Image(models.Model):
         on_delete=models.CASCADE,
         related_name='image_created',
     )
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=200,verbose_name="標題")
     slug = models.SlugField(max_length=200, blank=True)
     url = models.URLField()
     description = models.TextField(blank=True)
